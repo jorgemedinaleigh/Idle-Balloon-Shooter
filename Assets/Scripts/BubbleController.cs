@@ -25,5 +25,5 @@ public class BubbleController : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
+    }    
 }
