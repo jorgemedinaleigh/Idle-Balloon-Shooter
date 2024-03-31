@@ -148,3 +148,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9743e5782417b5f40b44fa93db646012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  xSpawnRange: 9
+  ySpawnPos: -7
+  zMinPos: 3
+  zMaxPos: 4
+  minSpeed: 2
+  maxSpeed: 7
