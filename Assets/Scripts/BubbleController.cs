@@ -10,6 +10,8 @@ public class BubbleController : MonoBehaviour
     [SerializeField] float minSpeed;
     [SerializeField] float maxSpeed;
 
+    [SerializeField] int popPoints;
+
     private Rigidbody bubbleRb;
 
     void Start()
