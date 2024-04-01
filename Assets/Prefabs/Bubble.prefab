@@ -149,8 +149,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   xSpawnRange: 9
-  ySpawnPos: -7
+  ySpawnPos: -4
   zMinPos: 3
   zMaxPos: 4
   minSpeed: 2
   maxSpeed: 7
+  popPoints: 0

@@ -4,10 +4,17 @@ using UnityEngine;
 
 public class TargetLocator : MonoBehaviour
 {
-    [SerializeField] Transform weapon;
-    [SerializeField] float range = 15f;
+    [SerializeField] Transform cannon;
+    [SerializeField] private Transform tipOfGun;
+    [SerializeField] public TowerStats towerStats;
 
     Transform target;
+    float nextFire;
+
+    void Awake()
+    {
+        nextFire = towerStats.fireRate;   
+    }
 
     void Update()
     {
@@ -19,11 +26,11 @@ public class TargetLocator : MonoBehaviour
     {
         float targetDistance = Vector3.Distance(transform.position, target.position);
 
-        weapon.LookAt(target);
+        cannon.LookAt(target);
 
-        if(targetDistance < range) 
+        if(targetDistance <= towerStats.fireRange) 
         {
-
+            Shoot();
         }
     }
 
@@ -45,6 +52,17 @@ public class TargetLocator : MonoBehaviour
             }
 
             target = closestTarget;
+        }
+    }
+
+    void Shoot()
+    {
+        if(Time.time >= nextFire)
+        {
+            nextFire = Time.time + towerStats.fireRate;
+            GameObject bulletInstance = Instantiate(towerStats.bullet, tipOfGun.position, Quaternion.identity);
+            var rb = bulletInstance.GetComponent<Rigidbody>();
+            rb.AddForce(target.transform.position.normalized * towerStats.bulletSpeed);
         }
     }
 
