@@ -155,3 +155,4 @@ MonoBehaviour:
   minSpeed: 2
   maxSpeed: 7
   popPoints: 0
+  bubbleStats: {fileID: 11400000, guid: d8de2019e57e30245ae928e8e51868af, type: 2}

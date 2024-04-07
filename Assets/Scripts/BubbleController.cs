@@ -1,35 +1,25 @@
 using UnityEngine;
 
 public class BubbleController : MonoBehaviour
-{
-    [SerializeField] float xSpawnRange;
-    [SerializeField] float ySpawnPos;
-    [SerializeField] float zMinPos;
-    [SerializeField] float zMaxPos;
-
-    [SerializeField] float minSpeed;
-    [SerializeField] float maxSpeed;
-
-    [SerializeField] int popPoints;
+{ 
+    [SerializeField] BubbleStats bubbleStats;
 
     private Rigidbody bubbleRb;
+    private BankController bank;
 
     void Start()
     {
+        bank = FindFirstObjectByType<BankController>();
         bubbleRb = GetComponent<Rigidbody>();
 
         transform.position = RandomSpawnPos();
         bubbleRb.AddForce(RandomForce(), ForceMode.Impulse);
     }
 
-    void Update()
-    {
-        
-    }
-
     private void OnMouseDown() 
     {
         Destroy(gameObject);
+        bank.Deposit(bubbleStats.popPoints);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -42,11 +32,11 @@ public class BubbleController : MonoBehaviour
 
     Vector3 RandomSpawnPos()
     {
-        return new Vector3(Random.Range(-xSpawnRange, xSpawnRange), ySpawnPos, Random.Range(zMinPos, zMaxPos));
+        return new Vector3(Random.Range(-bubbleStats.xSpawnRange, bubbleStats.xSpawnRange), bubbleStats.ySpawnPos, Random.Range(bubbleStats.zMinPos, bubbleStats.zMaxPos));
     }
 
     Vector3 RandomForce()
     {
-        return Vector3.up * Random.Range(minSpeed, maxSpeed);
+        return Vector3.up * Random.Range(bubbleStats.minSpeed, bubbleStats.maxSpeed);
     }
 }

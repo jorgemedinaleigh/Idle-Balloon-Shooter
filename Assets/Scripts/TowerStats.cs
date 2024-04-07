@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Tower Manager / Tower Stats")]
+[CreateAssetMenu(menuName = "Data / Tower Stats")]
 public class TowerStats : ScriptableObject
 {
     public float fireRate;
