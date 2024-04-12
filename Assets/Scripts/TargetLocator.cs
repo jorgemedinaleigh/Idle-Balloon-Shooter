@@ -18,20 +18,15 @@ public class TargetLocator : MonoBehaviour
 
     void Update()
     {
-        FindClosestTarget();
-        AimWeapon();
+        FindAimShoot();
     }
 
     void AimWeapon()
     {
-        float targetDistance = Vector3.Distance(transform.position, target.position);
-
-        cannon.LookAt(target);
-
-        if(targetDistance <= towerStats.fireRange) 
-        {
-            Shoot();
-        }
+        Vector3 dir = target.position - transform.position;
+        Quaternion lookRotation = Quaternion.LookRotation(dir);
+        Vector3 rotation = Quaternion.Lerp(cannon.rotation, lookRotation, Time.deltaTime * towerStats.rotationSpeed).eulerAngles;
+        cannon.rotation = Quaternion.Euler(rotation);
     }
 
     void FindClosestTarget()
@@ -60,10 +55,22 @@ public class TargetLocator : MonoBehaviour
         if(Time.time >= nextFire)
         {
             nextFire = Time.time + towerStats.fireRate;
-            GameObject bulletInstance = Instantiate(towerStats.bullet, tipOfGun.position, Quaternion.identity);
-            var rb = bulletInstance.GetComponent<Rigidbody>();
-            rb.AddForce(target.transform.position.normalized * towerStats.bulletSpeed);
+            GameObject projectileInstance = (GameObject)Instantiate(towerStats.projectile, tipOfGun.position, Quaternion.identity);
+            BulletController bulletController = projectileInstance.GetComponent<BulletController>();
+            bulletController.Seek(target);
         }
     }
 
+    void FindAimShoot()
+    {
+        FindClosestTarget();
+        AimWeapon();
+
+        float targetDistance = Vector3.Distance(transform.position, target.position);
+
+        if (targetDistance <= towerStats.fireRange)
+        {
+            Shoot();
+        }
+    }
 }

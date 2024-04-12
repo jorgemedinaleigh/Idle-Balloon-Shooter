@@ -24,8 +24,16 @@ public class BankController : MonoBehaviour
 
     public void Withdraw(int amount)
     {
-        currentBalance = currentBalance - Mathf.Abs(amount);
-        UpdateDisplay();
+        if(amount <= currentBalance) 
+        {
+            currentBalance = currentBalance - Mathf.Abs(amount);
+            UpdateDisplay();
+        }
+        else
+        {
+            return;
+        }
+        
     }
 
     void UpdateDisplay()

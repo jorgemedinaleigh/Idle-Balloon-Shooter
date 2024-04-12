@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BubbleController : MonoBehaviour
@@ -17,9 +18,9 @@ public class BubbleController : MonoBehaviour
     }
 
     private void OnMouseDown() 
-    {
-        Destroy(gameObject);
+    {        
         bank.Deposit(bubbleStats.popPoints);
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -27,6 +28,15 @@ public class BubbleController : MonoBehaviour
         if(other.CompareTag("Finish"))
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Projectile")
+        {
+            Destroy(gameObject);
+            bank.Deposit(bubbleStats.popPoints);            
         }
     }
 

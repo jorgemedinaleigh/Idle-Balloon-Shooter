@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: BasicTower
   m_EditorClassIdentifier: 
   fireRate: 1
-  fireRange: 10
+  fireRange: 5
   ammunition: 10
-  bulletSpeed: 1500
-  bullet: {fileID: 4932289477806250154, guid: cff370b2aac5f6d488ca3e156713cf12, type: 3}
+  price: 10
+  rotationSpeed: 5
+  projectile: {fileID: 4932289477806250154, guid: cff370b2aac5f6d488ca3e156713cf12, type: 3}
