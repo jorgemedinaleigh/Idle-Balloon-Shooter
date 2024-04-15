@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class TargetLocator : MonoBehaviour
 {
@@ -17,12 +18,12 @@ public class TargetLocator : MonoBehaviour
     }
 
     void Update()
-    {
+    {        
         FindAimShoot();
     }
 
     void AimWeapon()
-    {
+    {        
         Vector3 dir = target.position - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(dir);
         Vector3 rotation = Quaternion.Lerp(cannon.rotation, lookRotation, Time.deltaTime * towerStats.rotationSpeed).eulerAngles;
@@ -44,9 +45,16 @@ public class TargetLocator : MonoBehaviour
             {
                 closestTarget = bubble.transform;
                 maxDistance = targetDistance;
-            }
-
+            }            
+        }     
+        
+        if(closestTarget != null && maxDistance <= towerStats.fireRange)
+        {
             target = closestTarget;
+        }
+        else
+        {
+            target = null;
         }
     }
 
@@ -64,6 +72,10 @@ public class TargetLocator : MonoBehaviour
     void FindAimShoot()
     {
         FindClosestTarget();
+        if (target == null)
+        {
+            return;
+        }
         AimWeapon();
 
         float targetDistance = Vector3.Distance(transform.position, target.position);

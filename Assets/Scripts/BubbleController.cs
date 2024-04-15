@@ -18,9 +18,8 @@ public class BubbleController : MonoBehaviour
     }
 
     private void OnMouseDown() 
-    {        
-        bank.Deposit(bubbleStats.popPoints);
-        Destroy(gameObject);
+    {
+        ProcessPopping();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -35,9 +34,14 @@ public class BubbleController : MonoBehaviour
     {
         if(collision.gameObject.tag == "Projectile")
         {
-            Destroy(gameObject);
-            bank.Deposit(bubbleStats.popPoints);            
+            ProcessPopping();
         }
+    }
+
+    private void ProcessPopping()
+    {
+        bank.Deposit(bubbleStats.popPoints);
+        Destroy(gameObject);
     }
 
     Vector3 RandomSpawnPos()
